@@ -3,6 +3,7 @@
     "name":"The Expanse VR",
     "image":"https://i.imgur.com/LG7uy8N.jpg",
     "apk":"https://cdn.theexpanse.app/TheExpanse.apk",
+    "package":"",
     "description":"A social VR platform with some awesome tools for creating content!",
     "category":"social-vr"
   }

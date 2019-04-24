@@ -1,9 +1,50 @@
 [
   {
+    "name":"WhatsApp",
+    "image":"https://i.imgur.com/DhUlUlO.png",
+    "apk":"https://s-static-assets.androidapks.com/sdata/91f98ea637354e8078b2bc8bd31b3fd2/com.whatsapp_v2.19.116-452769_Android-4.0.3.apk",
+    "package":"com.whatsapp",
+    "description":"This version: It’s now easier to start group voice and video calls. Just tap the call button in groups or select \"New group call\" when starting a new call in the calls tab. Group calls support up to 4 participants. ",
+    "category":"chat"
+  },
+  {
     "name":"Facebook",
     "image":"https://i.imgur.com/2UQHMSZ.jpg",
     "apk":"https://s-static-assets.androidapks.com/sdata/7a131b4783691583e09943dff2f43308/com.facebook.katana_v218.0.0.46.109-151380998_Android-4.1.apk",
+    "package":"com.facebook.katana",
     "description":"Facebook is the official app of social network of the same name. Connectivity was never so easy before facebook.",
     "category":"social-media"
+  },
+  {
+    "name":"Facebook Messenger",
+    "image":"https://i.imgur.com/Nc08rDH.png",
+    "apk":"https://s-static-assets.androidapks.com/sdata/0b80ec3b62f07f49062908d02bc23649/com.facebook.orca_v212.1.0.13.109-151534261_Android-5.0.apk",
+    "package":"com.facebook.orca",
+    "description":"Facebook is the official app of social network of the same name. Now you can see your call history and missed calls; all in one place.",
+    "category":"chat"
+  },
+  {
+    "name":"Microsoft Word",
+    "image":"https://i.imgur.com/n6dDCR3.png",
+    "apk":"https://r-static-assets.androidapks.com/rdata/c1b96f8fedfa5eb202fe0949b12f8748/com.microsoft.office.word_v16.0.11601.20074-2001731333_Android-6.0.apk",
+    "package":"com.microsoft.office.word",
+    "description":"Create slideshows.",
+    "category":"utilities"
+  },
+  {
+    "name":"Microsoft PowerPoint",
+    "image":"https://i.imgur.com/4VKaiUz.png",
+    "apk":"https://r-static-assets.androidapks.com/rdata/44997f410c83071273bffd6078bf5b39/com.microsoft.office.powerpoint_v16.0.11601.20074-2001731333_Android-6.0.apk",
+    "package":"com.microsoft.office.powerpoint",
+    "description":"Create slideshows.",
+    "category":"utilities"
+  },
+  {
+    "name":"Slack",
+    "image":"https://i.imgur.com/RYbfV5j.png",
+    "apk":"https://r-static-assets.androidapks.com/rdata/7a964c447f994e98add7009b73c92d8d/com.Slack_v19.4.2.0-20009825_Android-4.4.apk",
+    "package":"com.Slack",
+    "description":"Dark Mode can now be switched on (or off) in the Settings menu. Yes, it’s been a long road, but there’s finally dark at the end of the tunnel. NB: This is mobile only for now, with desktop coming later — thank you for both bearing with us, and for continuing to expect more of us.",
+    "category":"chat"
   }
 ]

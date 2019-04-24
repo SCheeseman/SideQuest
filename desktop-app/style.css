@@ -8,6 +8,12 @@ html,body{
 *{
     box-sizing: border-box;
 }
+.image-background{
+    height: 250px;
+    width: 100%;
+    background-size: cover;
+    background-color: #586161;
+}
 .content{
     width: 100%;
     height:100%;

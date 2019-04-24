@@ -9,29 +9,49 @@
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
+<template id="listItem">
+    <div class="col s4">
+        <div class="card sticky-action">
+            <div class="card-image waves-effect waves-block waves-light">
+                <div class="activator image image-background"></div>
+            </div>
+            <div class="card-content">
+                <span class="card-title card-title-one activator grey-text text-darken-4">Card Title</span>
+                <p></p>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title card-title-two grey-text text-darken-4">Card Title</span>
+                <p class="description">Here is some more information about this product that is only revealed once clicked on.</p>
+            </div>
+            <div class="card-action">
+                <a href="#">Install APK</a>
+            </div>
+        </div>
+    </div>
+</template>
 <div class="side-nav">
     <div class="logo"></div>
     <div class="menu-items">
         <div class="menu-item">
-            <div class="menu-item-inner">
+            <div class="menu-item-inner menu" data-type="games">
                 <i class="material-icons menu-icon">games</i><br>
                 Games
             </div>
         </div>
         <div class="menu-item">
-            <div class="menu-item-inner">
+            <div class="menu-item-inner menu" data-type="experiences">
                 <i class="material-icons menu-icon">ondemand_video</i><br>
                 Experiences
             </div>
         </div>
         <div class="menu-item">
-            <div class="menu-item-inner">
+            <div class="menu-item-inner menu" data-type="apps">
                 <i class="material-icons menu-icon">apps</i><br>
                 Apps
             </div>
         </div>
         <div class="menu-item">
-            <div class="menu-item-inner">
+            <div class="menu-item-inner setup-menu">
                 <i class="material-icons menu-icon">done_all</i><br>
                 Setup
             </div>
@@ -44,191 +64,28 @@
 
         <div class="search">
             <div class="input-field inline search-box">
-                <input id="email_inline" type="text">
-                <label for="email_inline">Search</label>
+                <input id="searchBox" type="text">
+                <label for="searchBox">Search</label>
             </div>
             <a class="waves-effect waves-light btn purple search-button-margin">search</a>
         </div>
         <div class="filters">
             <div class="input-field inline filter">
-                <select>
-                    <option value="" disabled selected>Game Categories</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
+                <select id="filterDropdown">
+                    <option>All</option>
                 </select>
             </div>
         </div>
     </div>
     <div class="body-content">
         <div class="content-padding">
-            <div class="row">
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/1">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/2">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/3">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/4">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/5">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/6">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/7">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/8">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card sticky-action">
-                        <div class="card-image waves-effect waves-block waves-light">
-                            <img class="activator" src="https://lorempixel.com/580/250/nature/10">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-                            <p></p>
-                        </div>
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-                            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="#">More...</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="row" id="container">
+
             </div>
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="js/app.js"></script>
 </body>
