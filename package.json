@@ -1,0 +1,15 @@
+{
+  "name": "OpenStore-VR",
+  "version": "0.0.1",
+  "description": "A open app store for mobile android based VR devices such as the Levovo Mirage, Oculus Go, Oculus Quest, Vive Focus.",
+  "repository": "https://github.com/shaneharris/OpenStoreVR.git",
+  "license": "MIT",
+  "author": "Shane Harris",
+  "main": "app.js",
+  "scripts":{
+    "start":"electron ."
+  },
+  "dependencies": {
+    "electron": "^4.1.4"
+  }
+}
