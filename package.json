@@ -6,10 +6,16 @@
   "license": "MIT",
   "author": "Shane Harris",
   "main": "app.js",
-  "scripts":{
-    "start":"electron ."
+  "scripts": {
+    "start": "electron ."
   },
   "dependencies": {
-    "electron": "^4.1.4"
+    "adbkit": "^2.11.1",
+    "android-platform-tools": "^2.0.0",
+    "electron": "^4.1.4",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.8.4"
   }
 }

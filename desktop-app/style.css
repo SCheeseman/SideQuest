@@ -57,13 +57,18 @@ html,body{
     -webkit-user-select: none;
     -webkit-app-region: drag;
 }
-.header-title{
+.header-title,.section-title{
     float: left;
     font-size: 2.5rem;
     margin-top: 0.5em;
     margin-left: 1em;
     color: #6f6f6f;
     font-family: 'PT Sans', sans-serif;
+}
+.section-title{
+    float: initial;
+    font-size: 2rem;
+    display: block;
 }
 .menu-icon{
     font-size: 2rem;
@@ -147,4 +152,64 @@ html,body{
 }
 ::-webkit-scrollbar-thumb {
     background: #009688;
+}
+#connection-status-message{
+    text-align: right;
+    white-space: nowrap;
+    float: right;
+    margin-right: 25px;
+    margin-top: -2px;
+}
+#connection-status{
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    position: absolute;
+    right: 70px;
+    top: 30px;
+    -webkit-app-region: no-drag;
+}
+#connection-refresh{
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    margin-top: -5px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+.connection-status-connected{
+    background-color:#4caf50;
+}
+.connection-status-unauthorized{
+    background-color:#ff9800;
+}
+.connection-status-disconnected{
+    background-color:#f44336;
+}
+.connection-status-too-many{
+    background-color:#9c27b0;
+}
+.link{
+    color:lightseagreen;
+    cursor: pointer;
+}
+.setup-image{
+    width: 100%;
+}
+.setup-content{
+    height: 550px;
+}
+#connection-ip-address{
+    position:absolute;
+    bottom: 30px;
+    left: 0;
+    width: 135px;
+    color:white;
+    text-align: center;
+}
+#enable-wifi{
+    position:absolute;
+    bottom: 30px;
+    left: 15px;
+    display:none;
 }

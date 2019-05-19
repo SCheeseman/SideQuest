@@ -9,22 +9,63 @@
     <link href="style.css" rel="stylesheet" />
 </head>
 <body>
+<template id="setupInstructions">
+    <div class="col s12 m6">
+        <div class="setup-content">
+            <div class="section-title">Step 1: Create Organisation</div>
+            <p>Put the Oculus Headset in developer mode to be able to sideload to the Headset. To do this, you have to be a registered "developer". This process is free. Go to <span class="link" data-url="https://dashboard.oculus.com">dashboard.oculus.com</span> on your PC and create an 'organization'. You'll be asked to accept the developer agreement.</p>
+
+            <img class="setup-image" src="setup-images/CreateOrganisation.png"/>
+            <img class="setup-image" src="setup-images/OculusDashboardDeveloperCreate.png"/>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="setup-content">
+            <div class="section-title">Step 2: Enable Developer Mode</div>
+            <p>Now that you’re a "developer", open the Oculus app on your smartphone or tablet. In the Settings tab, tap on the Go headset and tap 'More settings'. In the list, you should now see Developer Mode.</p>
+
+            <img class="setup-image" src="setup-images/OculusAppDevModeSteps.png"/>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="setup-content">
+            <div class="section-title">Step 3: Allow USB Debugging</div>
+            <p>Once you are connected you will have to allow USB debugging access on your headset. If you put your headset on at this point you will see something like the below. You should also select 'Always allow from this computer' to prevent this message from coming up every time you connect.</p>
+
+            <img class="setup-image" src="setup-images/allow-auth.png"/>
+        </div>
+    </div>
+    <div class="col s12 m6">
+        <div class="setup-content">
+            <div class="section-title">Step 4: Install App Launcher</div>
+            <p>Install a launcher to make finding apps easier on your headset. This launcher will be found in the library under 'Unknown Sources' on the menu on the left. Open it to find all the apps that have been installed on your device.</p>
+            <p style="text-align: center">
+                <a  href="#" class="waves-effect waves-light btn install-apk">Install App Launcher</a>
+            </p>
+            <p>You will then be able to install apps to your headset and open them from the launcher.</p>
+            <p style="text-align: center">
+                <a  href="#" class="waves-effect waves-light btn install-apk">Install Your First App - The Expanse</a>
+            </p>
+        </div>
+    </div>
+</template>
 <template id="listItem">
-    <div class="col s4">
+    <div class="col s6 l4 xl3">
         <div class="card sticky-action">
             <div class="card-image waves-effect waves-block waves-light">
                 <div class="activator image image-background"></div>
             </div>
             <div class="card-content">
-                <span class="card-title card-title-one activator grey-text text-darken-4">Card Title</span>
+                <span class="card-title card-title-one activator grey-text text-darken-4 truncate">Card Title</span>
                 <p></p>
             </div>
             <div class="card-reveal">
-                <span class="card-title card-title-two grey-text text-darken-4">Card Title</span>
+                <span class="card-title card-title-two grey-text text-darken-4 truncate">Card Title</span>
                 <p class="description">Here is some more information about this product that is only revealed once clicked on.</p>
             </div>
-            <div class="card-action">
-                <a href="#">Install APK</a>
+            <div class="card-action right-align">
+                <i style="display:none" class="material-icons loading">more_horiz</i>
+                <a  href="#" class="waves-effect waves-light btn install-apk">Install</a>
             </div>
         </div>
     </div>
@@ -57,23 +98,30 @@
             </div>
         </div>
     </div>
+    <div id="connection-ip-address"></div>
+    <a id="enable-wifi" href="#" class="waves-effect waves-light btn">Wifi Mode</a>
 </div>
 <div class="content">
     <div class="header">
         <div class="header-title">Item Name</div>
-
-        <div class="search">
-            <div class="input-field inline search-box">
-                <input id="searchBox" type="text">
-                <label for="searchBox">Search</label>
-            </div>
-            <a class="waves-effect waves-light btn purple search-button-margin">search</a>
+        <i id="connection-refresh" class="material-icons menu-icon">refresh</i>
+        <div id="connection-status">
+            <div id="connection-status-message"></div>
         </div>
-        <div class="filters">
-            <div class="input-field inline filter">
-                <select id="filterDropdown">
-                    <option>All</option>
-                </select>
+        <div id="searchFilterContainer">
+            <div class="search">
+                <div class="input-field inline search-box">
+                    <input id="searchBox" type="text">
+                    <label for="searchBox">Search</label>
+                </div>
+                <a class="waves-effect waves-light btn purple search-button-margin">search</a>
+            </div>
+            <div class="filters" style="display: none">
+                <div class="input-field inline filter">
+                    <select id="filterDropdown">
+                        <option>All</option>
+                    </select>
+                </div>
             </div>
         </div>
     </div>
@@ -87,6 +135,7 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.5.4/randomColor.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="js/setup.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
