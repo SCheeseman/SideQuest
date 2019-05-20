@@ -14,6 +14,7 @@ class Setup {
         this.deviceSerial = '';
         this.adbPath = path.join(process.cwd(),'platform-tools');
         this.connection_refresh = document.getElementById('connection-refresh');
+        this.connection_refresh_loading = document.getElementById('connection-refresh-loading');
         this.setupAdb()
             .then(async ()=>this.updateConnectedStatus(await this.connectedStatus()));
     }
@@ -111,10 +112,14 @@ class Setup {
         this.connection_refresh.addEventListener('click',async ()=>this.updateConnectedStatus(await this.connectedStatus()));
     }
     async connectedStatus(){
-        this.connection_refresh.innerText = 'more_horiz';
+        this.connection_refresh_loading.style.display = 'block';
+        this.connection_refresh.style.display = 'none';
         return this.adb.listDevices()
             .then((devices) =>{
-                this.connection_refresh.innerText = 'refresh';
+                setTimeout(()=>{
+                    this.connection_refresh_loading.style.display = 'none';
+                    this.connection_refresh.style.display = 'block';
+                },100);
                 if(devices.length === 1){
                     this.deviceSerial = devices[0].id;
                     if(devices[0].type === 'device') {

@@ -46,31 +46,39 @@ class App{
         [].slice.call(document.querySelectorAll('.link')).forEach(link=>{
             link.addEventListener('click',()=>this.openExternalLink(link.dataset.url));
         });
-
         this.install_launcher = document.querySelector('.install-launcher');
         this.install_launcher_loader = document.querySelector('.install-launcher-loading');
         this.install_launcher_container = document.querySelector('.install-launcher-container');
-        this.install_launcher.addEventListener('click',()=>{
-            this.install_launcher.style.display = 'none';
-            this.install_launcher_loader.style.display = 'block';
-            this.setup.installApk('https://cdn.theexpanse.app/OpenAppStoreWrapper.apk')
-                .then(()=>this.setup.installApk('https://cdn.theexpanse.app/OpenAppStoreLauncher.apk'))
-                .then(()=>{
-                    this.install_launcher_container.innerHTML = 'Done!';
-                })
-        });
+        if(~this.setup.devicePackages.indexOf('com.openappstore.wrapper') && ~this.setup.devicePackages.indexOf('com.openappstore.launcher')) {
+            this.install_launcher_container.innerHTML = 'Already Installed!';
+        }else {
+            this.install_launcher.addEventListener('click', () => {
+                this.install_launcher.style.display = 'none';
+                this.install_launcher_loader.style.display = 'inline-block';
+                this.setup.installApk('https://cdn.theexpanse.app/OpenAppStoreWrapper.apk')
+                    .then(() => this.setup.installApk('https://cdn.theexpanse.app/OpenAppStoreLauncher.apk'))
+                    .then(() => {
+                        this.install_launcher_container.innerHTML = 'Done!';
+                    })
+            });
+        }
         this.install_expanse = document.querySelector('.install-expanse');
         this.install_expanse_loader = document.querySelector('.install-expanse-loading');
         this.install_expanse_container = document.querySelector('.install-expanse-container');
-        this.install_expanse.addEventListener('click',()=>{
-            this.install_expanse.style.display = 'none';
-            this.install_expanse_loader.style.display = 'block';
-            this.setup.installApk('https://cdn.theexpanse.app/TheExpanse.GearVR.apk').then(()=>{
-                this.install_expanse_container.innerHTML = 'Done!';
-            })
-        });
+        if(~this.setup.devicePackages.indexOf('app.theexpanse.app')) {
+            this.install_expanse_container.innerHTML = 'Already Installed!';
+        }else{
+            this.install_expanse.addEventListener('click',()=>{
+                this.install_expanse.style.display = 'none';
+                this.install_expanse_loader.style.display = 'inline-block';
+                this.setup.installApk('https://cdn.theexpanse.app/TheExpanse.GearVR.apk').then(()=>{
+                    this.install_expanse_container.innerHTML = 'Done!';
+                })
+            });
+        }
     }
     openScreen(type){
+        this.container.innerHTML = '<h4 class="grey-text">Loading apps...</h4>';
         this.searchFilterContainer.style.display = 'block';
         this.title.innerHTML = type.charAt(0).toUpperCase() + type.slice(1);
         this.getItems(this.db_root+type+".json","","");

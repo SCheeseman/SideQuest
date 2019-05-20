@@ -169,7 +169,7 @@ html,body{
     top: 50px;
     -webkit-app-region: no-drag;
 }
-#connection-refresh{
+#connection-refresh,#connection-refresh-loading{
     position: absolute;
     right: 70px;
     top: 50px;
@@ -223,4 +223,7 @@ html,body{
 .help-link{
     cursor: pointer;
     -webkit-app-region: no-drag;
+}
+.fixed-height{
+    height:425px;
 }
