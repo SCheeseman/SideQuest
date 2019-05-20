@@ -1,5 +1,13 @@
 [
   {
+    "name":"Kodi (XBMC)",
+    "image":"https://i.imgur.com/vv0wM2Y.png",
+    "apk":"https://r-static-assets.androidapks.com/rdata/cbad328c3be33228033a1e262e3cf97f/org.xbmc.kodi_v18.2-1802000_Android-5.0.apk",
+    "package":"org.xbmc.kodi",
+    "description":"This is the release of 18.2 \"Leia\"",
+    "category":"chat"
+  },
+  {
     "name":"WhatsApp",
     "image":"https://i.imgur.com/DhUlUlO.png",
     "apk":"https://s-static-assets.androidapks.com/sdata/91f98ea637354e8078b2bc8bd31b3fd2/com.whatsapp_v2.19.116-452769_Android-4.0.3.apk",
