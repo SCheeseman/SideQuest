@@ -6,5 +6,7 @@ The Open Store VR is designed to simplify sideloading apps onto your standalone 
 Some more helpful links:
 
 [Oculus Go ADB Driver](https://developer.oculus.com/downloads/package/oculus-go-adb-drivers/)
+
 [Device Setup - Oculus Go - Developer Mode](https://developer.oculus.com/documentation/mobilesdk/latest/concepts/mobile-device-setup-go/)
+
 ![Image](https://i.imgur.com/3o85osO.png)
