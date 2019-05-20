@@ -1,9 +1,10 @@
 const adb = require('adbkit');
-const adbTools = require('android-platform-tools');
+const extract = require('extract-zip');
+const os = require('os');
 const fs = require('fs');
 const path = require('path');
-var request = require('request')
-var Readable = require('stream').Readable;
+let request = require('request')
+let Readable = require('stream').Readable;
 
 class Setup {
     constructor(app) {
@@ -11,7 +12,7 @@ class Setup {
         this.devicePackages = [];
         this.deviceStatus = 'disconnected';
         this.deviceSerial = '';
-        this.adbPath = path.join(process.cwd(),'platform-tools','adb.exe');
+        this.adbPath = path.join(process.cwd(),'platform-tools');
         this.connection_refresh = document.getElementById('connection-refresh');
         this.setupAdb()
             .then(async ()=>this.updateConnectedStatus(await this.connectedStatus()));
@@ -29,17 +30,23 @@ class Setup {
         let statusMessage = document.getElementById('connection-status-message');
         switch(status){
             case "too-many":
-                statusMessage.innerText = 'Warning: Please connect only one android device to your PC';
+                statusMessage.innerText = 'Warning: Please connect only one android device to your PC - <a class="help-link">Help</a>';
                 break;
             case "connected":
                 statusMessage.innerText = 'Connected';
                 break;
             case "disconnected":
-                statusMessage.innerText = 'Disconnected: Connect your headset via USB';
+                statusMessage.innerHTML = 'Disconnected: Connect/Reconnect your headset via USB - <a class="help-link">Help</a>';
                 break;
             case "unauthorized":
-                statusMessage.innerText = 'Unauthorized: Put your headset on and click always allow and then OK';
+                statusMessage.innerText = 'Unauthorized: Put your headset on and click always allow and then OK - <a class="help-link">Help</a>';
                 break;
+        }
+        let help = document.querySelector('.help-link');
+        if(help){
+            help.addEventListener('click',()=>{
+                this.app.openSetupScreen();
+            });
         }
         if(this.deviceStatus !== 'connected'){
             document.getElementById('connection-ip-address').innerHTML = '';
@@ -81,7 +88,6 @@ class Setup {
             })
     }
     showHideWifiButton(){
-        console.log(this.deviceIp, this.deviceSerial);
         if(this.deviceIp && this.deviceSerial === this.deviceIp+":5556"){
             this.app.enable_wifi.innerText = 'USB Mode';
             return true;
@@ -99,23 +105,28 @@ class Setup {
     }
     async setupAdb(){
         if(!this.isAdbDownloaded()){
-            await adbTools.downloadTools();
+            await this.downloadTools();
         }
-        this.adb = adb.createClient({bin:this.adbPath});
+        this.adb = adb.createClient({bin:path.join(this.adbPath,this.getAdbBinary())});
         this.connection_refresh.addEventListener('click',async ()=>this.updateConnectedStatus(await this.connectedStatus()));
     }
     async connectedStatus(){
         this.connection_refresh.innerText = 'more_horiz';
         return this.adb.listDevices()
             .then((devices) =>{
-                console.log(devices);
                 this.connection_refresh.innerText = 'refresh';
                 if(devices.length === 1){
                     this.deviceSerial = devices[0].id;
-                    this.getPackages();
-                    // this.getIpAddress()
-                    //     .then(()=>this.showHideWifiButton());
-                    return devices[0].type === 'unauthorized'?devices[0].type:'connected';
+                    if(devices[0].type === 'device') {
+                        this.getPackages();
+                        // this.getIpAddress()
+                        //     .then(()=>this.showHideWifiButton());
+                        return 'connected';
+                    }else if(devices[0].type === 'offline') {
+                        return 'disconnected';
+                    }else{
+                        return 'unauthorized';
+                    }
                 }else{
                     if(devices.length > 1) {
                         return 'too-many';
@@ -123,6 +134,61 @@ class Setup {
                         return 'disconnected';
                     }
                 }
+            })
+            .catch(err=>{
+                console.log(err);
             });
+    }
+    getUserAgent() {
+        const nodeString = `NodeJs/${process.version}`;
+        const packageString = 'OpenStoreVR';
+        const computerString = `Hostname/${os.hostname()} Platform/${os.platform()} PlatformVersion/${os.release()}`;
+        return `${packageString} ${nodeString} ${computerString}`;
+    }
+    getAdbBinary(){
+        switch (os.platform()) {
+            case 'win32':
+                return 'adb.exe';
+            default:
+                return 'adb';
+        }
+    }
+    async downloadTools(){
+        const WINDOWS_URL = 'https://dl.google.com/android/repository/platform-tools-latest-windows.zip';
+        const LINUX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip';
+        const OSX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-darwin.zip';
+        let downloadUrl = LINUX_URL;
+        switch (os.platform()) {
+            case 'win32':
+                downloadUrl = WINDOWS_URL;
+                break;
+            case 'darwin':
+                downloadUrl = OSX_URL;
+                break;
+            case 'linux':
+                downloadUrl = LINUX_URL;
+                break;
+        }
+        let zipPath = this.adbPath+".zip";
+        const requestOptions = {timeout: 30000, 'User-Agent': this.getUserAgent()};
+        return new Promise((resolve,reject)=>{
+            request(downloadUrl, requestOptions)
+                .on('error', (error)  => {
+                    debug(`Request Error ${error}`);
+                    reject(error);
+                })
+                .pipe(fs.createWriteStream(zipPath))
+                .on('finish', ()  => {
+                    extract(zipPath, {dir: process.cwd()},(error) => {
+                        if(error) {
+                            reject(error);
+                        }else{
+                            fs.unlink(zipPath, (err) => {
+                                resolve();
+                            });
+                        }
+                    });
+                });
+        })
     }
 }

@@ -11,11 +11,12 @@
   },
   "dependencies": {
     "adbkit": "^2.11.1",
-    "android-platform-tools": "^2.0.0",
-    "electron": "^4.1.4",
+    "extract-zip": "^1.6.7",
+    "opn": "^6.0.0",
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "electron": "^4.1.4",
     "electron-rebuild": "^1.8.4"
   }
 }

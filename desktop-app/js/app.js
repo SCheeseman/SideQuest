@@ -1,4 +1,4 @@
-const { shell } = require('electron');
+const opn = require('opn');
 class App{
     constructor(){
         M.AutoInit();
@@ -29,9 +29,12 @@ class App{
 
         this.enable_wifi = document.querySelector('#enable-wifi');
         this.enable_wifi.addEventListener('click',()=>this.setup.enableWifiMode());
+        document.getElementById('close-app').addEventListener('click',()=>{
+            require('electron').remote.getCurrentWindow().close();
+        });
     }
     openExternalLink(url){
-        shell.openExternal(url);
+        opn(url);
     }
     openSetupScreen(){
         this.container.innerHTML = '';
@@ -44,6 +47,28 @@ class App{
             link.addEventListener('click',()=>this.openExternalLink(link.dataset.url));
         });
 
+        this.install_launcher = document.querySelector('.install-launcher');
+        this.install_launcher_loader = document.querySelector('.install-launcher-loading');
+        this.install_launcher_container = document.querySelector('.install-launcher-container');
+        this.install_launcher.addEventListener('click',()=>{
+            this.install_launcher.style.display = 'none';
+            this.install_launcher_loader.style.display = 'block';
+            this.setup.installApk('https://cdn.theexpanse.app/OpenAppStoreWrapper.apk')
+                .then(()=>this.setup.installApk('https://cdn.theexpanse.app/OpenAppStoreLauncher.apk'))
+                .then(()=>{
+                    this.install_launcher_container.innerHTML = 'Done!';
+                })
+        });
+        this.install_expanse = document.querySelector('.install-expanse');
+        this.install_expanse_loader = document.querySelector('.install-expanse-loading');
+        this.install_expanse_container = document.querySelector('.install-expanse-container');
+        this.install_expanse.addEventListener('click',()=>{
+            this.install_expanse.style.display = 'none';
+            this.install_expanse_loader.style.display = 'block';
+            this.setup.installApk('https://cdn.theexpanse.app/TheExpanse.GearVR.apk').then(()=>{
+                this.install_expanse_container.innerHTML = 'Done!';
+            })
+        });
     }
     openScreen(type){
         this.searchFilterContainer.style.display = 'block';

@@ -39,12 +39,14 @@
         <div class="setup-content">
             <div class="section-title">Step 4: Install App Launcher</div>
             <p>Install a launcher to make finding apps easier on your headset. This launcher will be found in the library under 'Unknown Sources' on the menu on the left. Open it to find all the apps that have been installed on your device.</p>
-            <p style="text-align: center">
-                <a  href="#" class="waves-effect waves-light btn install-apk">Install App Launcher</a>
+            <p style="text-align: center" class="install-launcher-container">
+                <i style="display:none" class="material-icons install-launcher-loading">more_horiz</i>
+                <a  href="#" class="waves-effect waves-light btn install-launcher">Install App Launcher</a>
             </p>
             <p>You will then be able to install apps to your headset and open them from the launcher.</p>
-            <p style="text-align: center">
-                <a  href="#" class="waves-effect waves-light btn install-apk">Install Your First App - The Expanse</a>
+            <p style="text-align: center" class="install-expanse-container">
+                <i style="display:none" class="material-icons install-expanse-loading">more_horiz</i>
+                <a  href="#" class="waves-effect waves-light btn install-expanse">Install Your First App - The Expanse</a>
             </p>
         </div>
     </div>
@@ -104,9 +106,10 @@
 <div class="content">
     <div class="header">
         <div class="header-title">Item Name</div>
-        <i id="connection-refresh" class="material-icons menu-icon">refresh</i>
-        <div id="connection-status">
-            <div id="connection-status-message"></div>
+        <i id="close-app" class="material-icons">close</i>
+        <i id="connection-refresh" class="material-icons">refresh</i>
+        <div id="connection-status" class="connection-status-unauthorized">
+            <div id="connection-status-message">Connecting...</div>
         </div>
         <div id="searchFilterContainer">
             <div class="search">

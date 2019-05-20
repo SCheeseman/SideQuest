@@ -157,7 +157,7 @@ html,body{
     text-align: right;
     white-space: nowrap;
     float: right;
-    margin-right: 25px;
+    margin-right: 30px;
     margin-top: -2px;
 }
 #connection-status{
@@ -165,14 +165,14 @@ html,body{
     height: 20px;
     border-radius: 10px;
     position: absolute;
-    right: 70px;
-    top: 30px;
+    right: 110px;
+    top: 50px;
     -webkit-app-region: no-drag;
 }
 #connection-refresh{
     position: absolute;
-    right: 30px;
-    top: 30px;
+    right: 70px;
+    top: 50px;
     margin-top: -5px;
     cursor: pointer;
     -webkit-app-region: no-drag;
@@ -212,4 +212,15 @@ html,body{
     bottom: 30px;
     left: 15px;
     display:none;
+}
+#close-app{
+    position:absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+.help-link{
+    cursor: pointer;
+    -webkit-app-region: no-drag;
 }
