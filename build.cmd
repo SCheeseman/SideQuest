@@ -1,1 +1,1 @@
-cd build && electron-packager --platform=all --arch=x64 ../ "Open App Store VR" --ignore="/mobile-launcher/.*|/platform-tools/.*|/build/.*|/db/.*" && cd ../
+cd build && electron-packager --platform=all --arch=x64 ../ "OpenStoreVR" --ignore="/mobile-launcher/.*|/platform-tools/.*|/build/.*|/db/.*" && cd ../

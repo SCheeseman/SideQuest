@@ -173,7 +173,7 @@ html,body{
     position: absolute;
     right: 70px;
     top: 50px;
-    margin-top: -5px;
+    margin-top: -3px;
     cursor: pointer;
     -webkit-app-region: no-drag;
 }
