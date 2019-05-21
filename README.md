@@ -11,20 +11,5 @@ Some more helpful links:
 
 [Device Setup - Oculus Go - Developer Mode](https://developer.oculus.com/documentation/mobilesdk/latest/concepts/mobile-device-setup-go/)
 
-This app is brought to you by the lead developer of The Expanse - a social VR building game with lots of power!
-
-Follow Us!
-
-https://www.patreon.com/TheExpanseVR
-
-https://discord.gg/Q2a5BkZ
-
-https://twitter.com/TheExpanseVR
-
-https://www.youtube.com/c/TheExpanseVR
-
-https://www.instagram.com/TheExpanseVR/
-
-https://theexpanse.app
 
 ![Image](https://i.imgur.com/3o85osO.png)
