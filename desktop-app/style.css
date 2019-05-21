@@ -8,8 +8,11 @@ html,body{
 *{
     box-sizing: border-box;
 }
+.card .card-title {
+    font-size: 16px;
+}
 .image-background{
-    height: 250px;
+    height: 100px;
     width: 100%;
     background-size: cover;
     background-color: #586161;
@@ -36,10 +39,11 @@ html,body{
     border-top-left-radius: 40px;
 }
 .menu-items{
-    height:calc(100% - 135px);
+    height:calc(100% - 315px);
     overflow: hidden;
     overflow-y: auto;
     padding-bottom: 25px;
+    border-bottom: 1px solid #afafaf;
 }
 .logo{
     background: #4f5858 url("logo.png") center center no-repeat;
@@ -60,7 +64,7 @@ html,body{
 .header-title,.section-title{
     float: left;
     font-size: 2.5rem;
-    margin-top: 0.5em;
+    margin-top: 0.4em;
     margin-left: 1em;
     color: #6f6f6f;
     font-family: 'PT Sans', sans-serif;
@@ -73,11 +77,29 @@ html,body{
 .menu-icon{
     font-size: 2rem;
 }
-.menu-item{
+.menu-item,.menu-item-setup,.menu-item-repo{
     padding: 25px 20px 0 20px;
     font-family: 'Roboto', sans-serif;
     color: white;
     position:relative;
+}
+.menu-item a{
+    color: white;
+    display:block;
+}
+.modal-overlay{
+    border-top-left-radius: 40px;
+    height: 100%;
+    top:0;
+}
+.menu-item-setup,.menu-item-repo{
+    position:absolute;
+    bottom: 20px;
+    left:0;
+    width: 135px;
+}
+.menu-item-repo{
+    bottom: 100px;
 }
 .menu-item-inner:hover{
     cursor: pointer;
@@ -165,15 +187,21 @@ html,body{
     height: 20px;
     border-radius: 10px;
     position: absolute;
-    right: 110px;
-    top: 50px;
+    right: 17px;
+    top: 57px;
     -webkit-app-region: no-drag;
 }
 #connection-refresh,#connection-refresh-loading{
     position: absolute;
-    right: 70px;
-    top: 50px;
-    margin-top: -3px;
+    right: 50px;
+    top: 15px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+#open-debugger{
+    position: absolute;
+    right: 85px;
+    top: 15px;
     cursor: pointer;
     -webkit-app-region: no-drag;
 }
@@ -208,13 +236,13 @@ html,body{
     text-align: center;
 }
 #enable-wifi{
-    position:absolute;
+    position: absolute;
     bottom: 30px;
     left: 15px;
-    display:none;
+    display: none;
 }
 #close-app{
-    position:absolute;
+    position: absolute;
     right: 15px;
     top: 15px;
     cursor: pointer;
@@ -224,6 +252,73 @@ html,body{
     cursor: pointer;
     -webkit-app-region: no-drag;
 }
-.fixed-height{
-    height:425px;
+/*.fixed-height{*/
+    /*height: 425px;*/
+/*}*/
+.add-repo{
+    position: absolute;
+    top: 80px;
+    left: 30px;
+    -webkit-app-region: no-drag;
+}
+.edit-repo{
+    font-size: 14px;
+}
+.cursor{
+    cursor: pointer;
+}
+.modal.bottom-sheet{
+    max-height: initial;
+    height: 260px;
+}
+
+.loader-initial {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #0094ca; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.text-center{
+    text-align: center;
+}
+.spinner,.spinner-drag{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 10;
+    display:none;
+}
+.spinner-background{
+    background-color: rgba(255,255,255,0.5);
+    position:absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 40px;
+    z-index: 9;
+    display:none;
+}
+.well{
+    min-height:20px;
+    padding:19px;
+    margin-bottom:20px;
+    background-color:#f5f5f5;
+    border:1px solid #e3e3e3;
+    border-radius:4px;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
+}
+.well-lg{
+    padding:24px;
+    border-radius:6px
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

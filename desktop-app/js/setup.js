@@ -3,8 +3,9 @@ const extract = require('extract-zip');
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-let request = require('request')
-let Readable = require('stream').Readable;
+const request = require('request');
+const md5 = require('md5');
+const Readable = require('stream').Readable;
 
 class Setup {
     constructor(app) {
@@ -12,7 +13,7 @@ class Setup {
         this.devicePackages = [];
         this.deviceStatus = 'disconnected';
         this.deviceSerial = '';
-        this.adbPath = path.join(process.cwd(),'platform-tools');
+        this.adbPath = path.join(__dirname,'platform-tools');
         this.connection_refresh = document.getElementById('connection-refresh');
         this.connection_refresh_loading = document.getElementById('connection-refresh-loading');
         this.setupAdb()
@@ -53,6 +54,9 @@ class Setup {
             document.getElementById('connection-ip-address').innerHTML = '';
             this.app.enable_wifi.style.display = 'none';
         }
+    }
+    installLocalApk(path){
+        return this.adb.install(this.deviceSerial, fs.createReadStream(path));
     }
     installApk(url){
         return this.adb.install(this.deviceSerial, new Readable().wrap(request(url)));
@@ -184,7 +188,7 @@ class Setup {
                 })
                 .pipe(fs.createWriteStream(zipPath))
                 .on('finish', ()  => {
-                    extract(zipPath, {dir: process.cwd()},(error) => {
+                    extract(zipPath, {dir: __dirname},(error) => {
                         if(error) {
                             reject(error);
                         }else{

@@ -1,16 +1,24 @@
 const opn = require('opn');
+const remote = require('electron').remote;
 class App{
     constructor(){
         M.AutoInit();
         this.db_root = "https://raw.githubusercontent.com/shaneharris/OpenStoreVR/master/db/";
         this.current_data = [];
         this.setupMenu();
-        this.openScreen("games");
         this.setup = new Setup(this);
+        this.repos = new Repos(this);
     }
     setupMenu(){
+        this.spinner_drag = document.querySelector('.spinner-drag');
+        this.spinner_background = document.querySelector('.spinner-background');
+        this.add_repo = document.querySelector('.add-repo');
+        this.add_repo_button = document.querySelector('.add-repo-button');
+        this.add_repo_url = document.querySelector('#repoUrl');
+        this.menu_container = document.querySelector('.menu-items');
         this.filter_select = document.querySelector('#filterDropdown');
         this.filter_select.addEventListener('change',()=>this.searchFilter());
+        this.spinner_loading_message = document.querySelector('.spinner-loading-message');
 
         this.search_box = document.querySelector('#searchBox');
         this.search_box.addEventListener('keyup',()=>this.searchFilter());
@@ -27,16 +35,65 @@ class App{
         this.setup_menu = document.querySelector('.setup-menu');
         this.setup_menu.addEventListener('click',()=>this.openSetupScreen());
 
+        this.add_menu = document.querySelector('.add-menu');
+        this.add_menu.addEventListener('click',()=>this.repos.openRepos());
+
         this.enable_wifi = document.querySelector('#enable-wifi');
         this.enable_wifi.addEventListener('click',()=>this.setup.enableWifiMode());
         document.getElementById('close-app').addEventListener('click',()=>{
-            require('electron').remote.getCurrentWindow().close();
+            remote.getCurrentWindow().close();
         });
+        document.getElementById('open-debugger').addEventListener('click',()=>{
+            remote.getCurrentWindow().toggleDevTools();
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            let elems = document.querySelectorAll('.modal');
+            M.Modal.init(elems, {});
+        });
+        let dragTimeout;
+        document.ondragover = () => {
+            clearTimeout(dragTimeout);
+            this.spinner_drag.style.display = 'block';
+            this.spinner_background.style.display = 'block';
+            return false;
+        };
+
+        document.ondragleave = () => {
+            dragTimeout = setTimeout(()=>{
+                this.spinner_drag.style.display = 'none';
+                this.spinner_background.style.display = 'none';
+            },1000)
+            return false;
+        };
+
+        document.ondragend = () => {
+            this.spinner_drag.style.display = 'none';
+            this.spinner_background.style.display = 'none';
+            return false;
+        };
+
+        document.ondrop = (e) => {
+            e.preventDefault();
+            this.spinner_drag.style.display = 'none';
+            this.spinner_background.style.display = 'none';
+            for (let f of e.dataTransfer.files) {
+                this.spinner_loading_message.innerText = 'Installing APK, Please wait...';
+                this.toggleLoader(true);
+                this.setup.installLocalApk(f.path)
+                    .then(()=>this.toggleLoader(false));
+            }
+            return false;
+        };
+    }
+    toggleLoader(show){
+        document.querySelector('.spinner').style.display =
+        this.spinner_background.style.display = show ? 'block' : 'none';
     }
     openExternalLink(url){
         opn(url);
     }
     openSetupScreen(){
+        this.add_repo.style.display = 'none';
         this.container.innerHTML = '';
         this.searchFilterContainer.style.display = 'none';
         this.title.innerHTML = "Setup Instructions";
@@ -78,6 +135,7 @@ class App{
         }
     }
     openScreen(type){
+        this.add_repo.style.display = 'none';
         this.container.innerHTML = '<h4 class="grey-text">Loading apps...</h4>';
         this.searchFilterContainer.style.display = 'block';
         this.title.innerHTML = type.charAt(0).toUpperCase() + type.slice(1);
@@ -92,26 +150,26 @@ class App{
             return (is_filter && !search_value) ||
                 (is_filter &&
                     (~d.name.toLowerCase().indexOf(search_value.toLowerCase()) ||
-                        ~d.description.toLowerCase().indexOf(search_value.toLowerCase())));
+                        ~(d.summary||'').toLowerCase().indexOf(search_value.toLowerCase())));
         }).forEach(d=>{
             let child = this.template.content.cloneNode(true);
-            child.querySelector('.image').style.backgroundImage = 'url('+d.image+')';
-            child.querySelector('.image').style.backgroundColor = randomColor({seed:d.apk});
+            child.querySelector('.image').style.backgroundImage = 'url('+d.icon+')';
+            child.querySelector('.image').style.backgroundColor = randomColor({seed:d.packageName});
             child.querySelector('.card-title-one').innerHTML = '<i class="material-icons right">more_vert</i>'+d.name;
             child.querySelector('.card-title-two').innerHTML = '<i class="material-icons right">close</i>'+d.name;
-            child.querySelector('.description').innerText = d.description;
+            child.querySelector('.description').innerText = (d.summary||'');
             let installApk = child.querySelector('.install-apk');
             let loading = child.querySelector('.loading');
             if(!this.setup.deviceStatus || this.setup.deviceStatus !== 'connected'){
                 installApk.style.display = 'none';
             }
-            if(~this.setup.devicePackages.indexOf(d.package)){
+            if(~this.setup.devicePackages.indexOf(d.packageName)){
                 installApk.innerText = 'UNINSTALL';
                 installApk.className = 'waves-effect waves-light btn install-apk red';
                 installApk.addEventListener('click',()=>{
                     installApk.style.display = 'none';
                     loading.style.display = 'inline-block';
-                    this.setup.uninstallApk(d.package).then(()=>{
+                    this.setup.uninstallApk(d.packageName).then(()=>{
                         this.setup.getPackages()
                     });
                 });
