@@ -3,8 +3,9 @@ const extract = require('extract-zip');
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-let request = require('request')
-let Readable = require('stream').Readable;
+const request = require('request');
+const md5 = require('md5');
+const Readable = require('stream').Readable;
 
 class Setup {
     constructor(app) {
@@ -12,11 +13,16 @@ class Setup {
         this.devicePackages = [];
         this.deviceStatus = 'disconnected';
         this.deviceSerial = '';
-        this.adbPath = path.join(process.cwd(),'platform-tools');
+        this.adbPath = path.join(__dirname,'platform-tools');
         this.connection_refresh = document.getElementById('connection-refresh');
         this.connection_refresh_loading = document.getElementById('connection-refresh-loading');
         this.setupAdb()
-            .then(async ()=>this.updateConnectedStatus(await this.connectedStatus()));
+            .then(async ()=>{
+                this.updateConnectedStatus(await this.connectedStatus());
+                setInterval(async ()=>{
+                    this.updateConnectedStatus(await this.connectedStatus());
+                },5000);
+            });
     }
     isAdbDownloaded(){
         try {
@@ -53,6 +59,9 @@ class Setup {
             document.getElementById('connection-ip-address').innerHTML = '';
             this.app.enable_wifi.style.display = 'none';
         }
+    }
+    installLocalApk(path){
+        return this.adb.install(this.deviceSerial, fs.createReadStream(path));
     }
     installApk(url){
         return this.adb.install(this.deviceSerial, new Readable().wrap(request(url)));
@@ -96,6 +105,14 @@ class Setup {
             this.app.enable_wifi.innerText = 'Wifi Mode';
             return false;
         }
+    }
+    getPackageInfo(packageName){
+        return this.adb.shell(this.deviceSerial,'dumpsys package '+packageName+"  | grep versionName")
+            .then(adb.util.readAll)
+            .then(res=>{
+                let versionParts = res.toString().split('=');
+                return versionParts.length?versionParts[1]:'0.0.0.0';
+            });
     }
     getPackages(){
         this.adb.getPackages(this.deviceSerial)
@@ -159,6 +176,7 @@ class Setup {
         }
     }
     async downloadTools(){
+        document.getElementById('connection-status-message').innerText = 'Downloading ADB please wait...'
         const WINDOWS_URL = 'https://dl.google.com/android/repository/platform-tools-latest-windows.zip';
         const LINUX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip';
         const OSX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-darwin.zip';
@@ -184,7 +202,7 @@ class Setup {
                 })
                 .pipe(fs.createWriteStream(zipPath))
                 .on('finish', ()  => {
-                    extract(zipPath, {dir: process.cwd()},(error) => {
+                    extract(zipPath, {dir: __dirname},(error) => {
                         if(error) {
                             reject(error);
                         }else{

@@ -1,0 +1,3 @@
+https://guardianproject.info/fdroid/repo/
+https://eutopia.cz/fdroid/repo/
+https://apt.izzysoft.de/fdroid/repo/

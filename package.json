@@ -12,8 +12,10 @@
   "dependencies": {
     "adbkit": "^2.11.1",
     "extract-zip": "^1.6.7",
+    "md5": "^2.2.1",
     "opn": "^6.0.0",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "semver": "^6.0.0"
   },
   "devDependencies": {
     "electron": "^4.1.4",
