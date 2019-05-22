@@ -17,10 +17,12 @@ class Setup {
         this.connection_refresh = document.getElementById('connection-refresh');
         this.connection_refresh_loading = document.getElementById('connection-refresh-loading');
         this.setupAdb()
-            .then(async ()=>this.updateConnectedStatus(await this.connectedStatus()));
-        setInterval(async ()=>{
-            this.updateConnectedStatus(await this.connectedStatus());
-        },5000);
+            .then(async ()=>{
+                this.updateConnectedStatus(await this.connectedStatus());
+                setInterval(async ()=>{
+                    this.updateConnectedStatus(await this.connectedStatus());
+                },5000);
+            });
     }
     isAdbDownloaded(){
         try {
@@ -174,6 +176,7 @@ class Setup {
         }
     }
     async downloadTools(){
+        document.getElementById('connection-status-message').innerText = 'Downloading ADB please wait...'
         const WINDOWS_URL = 'https://dl.google.com/android/repository/platform-tools-latest-windows.zip';
         const LINUX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip';
         const OSX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-darwin.zip';
