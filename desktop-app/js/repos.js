@@ -53,7 +53,7 @@ class Repos {
         });
     }
     async openRepo(repo){
-        this.app.current_data = repo.body.apps;
+        this.app.current_data = repo;
         this.app.add_repo.style.display = 'none';
         this.app.container.innerHTML = '<h4 class="grey-text">Loading apps...</h4>';
         this.app.searchFilterContainer.style.display = 'block';

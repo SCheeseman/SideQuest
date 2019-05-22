@@ -24,7 +24,7 @@
     <div class="col s12 m6">
         <div class="setup-content">
             <div class="section-title">Step 2: Install Drivers</div>
-            <p>Install the driver software for your device. Go to <span class="link" data-url="https://developer.oculus.com/downloads/package/oculus-go-adb-drivers/">developer.oculus.com</span> on your PC and download the drivers for your headset. The Oculus Go drivers should work for teh quest also.</p>
+            <p>Install the driver software for your device. Go to <span class="link" data-url="https://developer.oculus.com/downloads/package/oculus-go-adb-drivers/">developer.oculus.com</span> on your PC and download the drivers for your headset. The Oculus Go drivers work for the quest also. To install the drivers extract the zip folder, right click the <div class="chip">android_winusb.inf</div> file and click install.</p>
 
             <img class="setup-image" src="setup-images/ADB Drivers.png"/>
         </div>
@@ -66,6 +66,28 @@
         <br><br>
     </div>
 </template>
+<template id="appVersion">
+    <li>
+        <div class="collapsible-header"><span class="version-name"></span> <a class="waves-effect waves-light btn right install-apk">Install</a></div>
+        <div class="collapsible-body"><span class="permissions"></span></div>
+    </li>
+</template>
+<template id="appItem">
+    <div class="col s6 l4 text-center">
+        <div class="app-image-container">
+            <img class="app-image"/>
+        </div>
+        <div class="app-meta"></div>
+    </div>
+    <div class="col s6 l8 summary">
+
+    </div>
+    <div class="col s12">
+        <ul class="collapsible app-versions">
+
+        </ul>
+    </div>
+</template>
 <template id="repoItem">
     <div class="col s1">
         <div class="chip cursor delete-repo">
@@ -86,7 +108,7 @@
     </div>
 </template>
 <template id="listItem">
-    <div class="col s3 l2">
+    <div class="col s4 m3 l2">
         <div class="card sticky-action fixed-height">
             <div class="card-image waves-effect waves-block waves-light">
                 <div class="activator image image-background"></div>

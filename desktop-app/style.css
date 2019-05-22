@@ -12,7 +12,7 @@ html,body{
     font-size: 16px;
 }
 .image-background{
-    height: 100px;
+    height: 150px;
     width: 100%;
     background-size: cover;
     background-color: #586161;
@@ -252,9 +252,9 @@ html,body{
     cursor: pointer;
     -webkit-app-region: no-drag;
 }
-/*.fixed-height{*/
-    /*height: 425px;*/
-/*}*/
+.fixed-height{
+    height: 300px;
+}
 .add-repo{
     position: absolute;
     top: 80px;
@@ -282,11 +282,32 @@ html,body{
     display: inline-block;
     margin-bottom: 20px;
 }
+.app-meta{
+    text-align:left;
+}
+.app-image-container{
+    position:relative;
+    height: 200px;
+}
+.app-image{
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    min-width: 128px;
+    min-height: 128px;
+    transform: translate(-50%,-50%);
+}
 .text-center{
     text-align: center;
 }
+.install-apk{
+    margin-top: -8px;
+}
+.collapsible-header{
+    display: block;
+}
 .spinner,.spinner-drag{
-    position:absolute;
+    position:fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);

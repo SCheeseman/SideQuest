@@ -18,6 +18,9 @@ class Setup {
         this.connection_refresh_loading = document.getElementById('connection-refresh-loading');
         this.setupAdb()
             .then(async ()=>this.updateConnectedStatus(await this.connectedStatus()));
+        setInterval(async ()=>{
+            this.updateConnectedStatus(await this.connectedStatus());
+        },5000);
     }
     isAdbDownloaded(){
         try {
@@ -100,6 +103,14 @@ class Setup {
             this.app.enable_wifi.innerText = 'Wifi Mode';
             return false;
         }
+    }
+    getPackageInfo(packageName){
+        return this.adb.shell(this.deviceSerial,'dumpsys package '+packageName+"  | grep versionName")
+            .then(adb.util.readAll)
+            .then(res=>{
+                let versionParts = res.toString().split('=');
+                return versionParts.length?versionParts[1]:'0.0.0.0';
+            });
     }
     getPackages(){
         this.adb.getPackages(this.deviceSerial)
