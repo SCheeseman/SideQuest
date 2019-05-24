@@ -34,7 +34,7 @@ I will be adding more apps to the repos and I will be notifying of repo updates 
 
 
 
-Some more helpful links:
+## More Info:
 
 [Oculus Go ADB Driver](https://developer.oculus.com/downloads/package/oculus-go-adb-drivers/)
 
