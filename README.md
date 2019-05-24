@@ -1,6 +1,6 @@
 # OpenStoreVR
 
-![Image](https://i.imgur.com/DuoGK6O.png)
+![Image](https://i.imgur.com/9TxcOQg.png)
 
 The Open Store VR is designed to simplify sideloading apps onto your standalone android based headset. It should include everything you need to get started. When you first open the app it is best to open the setup screen and follow the instructions on screen to get setup. 
 
