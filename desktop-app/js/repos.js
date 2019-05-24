@@ -18,13 +18,14 @@ class Repos {
             if(!err){
                 this.app.toggleLoader(true);
                 this.app.spinner_loading_message.innerText = 'Loading default repos';
-                setTimeout(()=>Promise.all(data.split('\n').map(url=>this.addRepo(url))).then(()=>{
+                let done = ()=>{
                     this.openMenuRepos();
                     this.app.toggleLoader(false);
                     if(this.repos.length){
                         this.openRepo(this.repos[0])
                     }
-                }));
+                };
+                setTimeout(()=>Promise.all(data.split('\n').map(url=>this.addRepo(url))).then(done).catch(done));
             }
         });
     }
@@ -146,11 +147,15 @@ class Repos {
                     fs.writeFile(__dirname+'/sources/'+md5(url)+".json",body,err=>{
                         if(err)alert("Failed to cache source ( url ):" + err);
                     });
-                    let repo_body = JSON.parse(body);
-                    if(!this.isValidRepo(repo_body)){
-                        reject("Repo not valid or unsupported version!");
-                    }else{
-                        resolve(repo_body);
+                    try{
+                        let repo_body = JSON.parse(body);
+                        if(!this.isValidRepo(repo_body)){
+                            reject("Repo not valid or unsupported version!");
+                        }else{
+                            resolve(repo_body);
+                        }
+                    }catch(e){
+                        return reject("JSON parse Error");
                     }
                 }
             })
