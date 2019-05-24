@@ -61,10 +61,18 @@ class Setup {
         }
     }
     installLocalApk(path){
-        return this.adb.install(this.deviceSerial, fs.createReadStream(path));
+        return this.adb.install(this.deviceSerial, fs.createReadStream(path))
+            .catch(e=>{
+                alert(e);
+                this.app.toggleLoader(false);
+            });
     }
     installApk(url){
-        return this.adb.install(this.deviceSerial, new Readable().wrap(request(url)));
+        return this.adb.install(this.deviceSerial, new Readable().wrap(request(url)))
+            .catch(e=>{
+                alert(e);
+                this.app.toggleLoader(false);
+            });
     }
     uninstallApk(pkg){
         return this.adb.uninstall(this.deviceSerial, pkg);
@@ -118,7 +126,6 @@ class Setup {
         this.adb.getPackages(this.deviceSerial)
             .then(packages=>{
                 this.devicePackages = packages;
-                this.app.searchFilter();
             });
     }
     async setupAdb(){

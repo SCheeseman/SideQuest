@@ -76,6 +76,7 @@ html,body{
 }
 .menu-icon{
     font-size: 2rem;
+    max-width: 48px;
 }
 .menu-item,.menu-item-setup,.menu-item-repo{
     padding: 25px 20px 0 20px;
@@ -200,6 +201,7 @@ html,body{
 }
 #open-debugger{
     position: absolute;
+    z-index: 9999;
     right: 85px;
     top: 15px;
     cursor: pointer;
@@ -243,6 +245,7 @@ html,body{
 }
 #close-app{
     position: absolute;
+    z-index: 9999;
     right: 15px;
     top: 15px;
     cursor: pointer;
@@ -287,15 +290,12 @@ html,body{
 }
 .app-image-container{
     position:relative;
-    height: 200px;
+    padding-bottom: 15px;
 }
 .app-image{
-    position:absolute;
-    left: 50%;
-    top: 50%;
     min-width: 128px;
     min-height: 128px;
-    transform: translate(-50%,-50%);
+    max-width: 100%;
 }
 .text-center{
     text-align: center;

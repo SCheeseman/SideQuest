@@ -127,9 +127,14 @@ class App{
             'issueTracker',
             'changelog'
         ];
+        let webProperties = properties.filter(p=>p!=='packageName'&&p!=='authorEmail');
         properties.forEach(p=>{
             if(app[p]){
-                output += p+": <b>"+app[p]+"</b><br>";
+                if(~webProperties.indexOf(p)){
+                    output += p+": <span class=\"link\" data-url=\""+app[p]+"\">"+app[p]+"</span><br>";
+                }else{
+                    output += p+": <b>"+app[p]+"</b><br>";
+                }
             }
         });
         return output;
@@ -162,9 +167,11 @@ class App{
             let installedVersion = await this.setup.getPackageInfo(app.packageName)
             let hasUpdate = false;
             appPackage.forEach(p=>{
-                if(semver.lt(installedVersion, p.versionName)){
-                    hasUpdate = true;
-                }
+                try{
+                    if(semver.lt(installedVersion, p.versionName)){
+                        hasUpdate = true;
+                    }
+                }catch(e){}
             });
             child.querySelector('.app-meta').innerHTML += '<br>'+(hasUpdate?'Update Available<br>':'')+'Installed version: '+installedVersion+'<br>';
         }
@@ -179,7 +186,13 @@ class App{
         child.querySelector('.app-image').src = app.icon;
         child.querySelector('.summary').innerHTML = this.getAppSummary(app)+'<br><br>'+this.getLongMetaData(app)+'<br><br>';
         child.querySelector('.screenshots');
-        appPackage.sort((a,b)=>semver.rcompare(a.versionName,b.versionName));
+
+        [].slice.call(child.querySelectorAll('.link')).forEach(link=>{
+            link.addEventListener('click',()=>this.openExternalLink(link.dataset.url));
+        });
+        try{
+            appPackage.sort((a,b)=>semver.rcompare(a.versionName,b.versionName));
+        }catch(e){}
         await this.showInstalledPackage(child, app,appPackage);
         appPackage.forEach((p,i)=>{
             let versionChild = this.appVersion.content.cloneNode(true);
@@ -190,13 +203,13 @@ class App{
             versionChild.querySelector('.install-apk').addEventListener('click',()=>{
                 this.toggleLoader(true);
                 this.spinner_loading_message.innerText = 'Installing APK...';
-                this.setup.installApk(this.current_data.url+p.apkName)
+                this.setup.installApk(p.apkName.substr(0,7)==='http://'||p.apkName.substr(0,8)==='https://'?p.apkName:this.current_data.url+p.apkName)
                     .then(()=>{
                         this.toggleLoader(false);
-                        return this.showInstalledPackage(child, app,appPackage);
+                        return this.showInstalledPackage(this.container, app,appPackage);
                     });
             });
-            versionChild.querySelector('.permissions').innerHTML = p['uses-permission'].map(permission=>{
+            versionChild.querySelector('.permissions').innerHTML = (p['uses-permission']||[]).map(permission=>{
                 return typeof permission === 'string'? permission: permission.filter(p=>p).join('<br>');
             }).join('<br>');
             child.querySelector('.app-versions').appendChild(versionChild);
