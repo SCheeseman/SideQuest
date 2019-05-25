@@ -69,6 +69,14 @@ html,body{
     color: #6f6f6f;
     font-family: 'PT Sans', sans-serif;
 }
+.apk-install{
+    font-size: 1rem;
+    position:absolute;
+    top: 65px;
+    left: 40px;
+    color: #6f6f6f;
+    font-family: 'PT Sans', sans-serif;
+}
 .section-title{
     float: initial;
     font-size: 2rem;
@@ -199,10 +207,24 @@ html,body{
     cursor: pointer;
     -webkit-app-region: no-drag;
 }
+.is-installed{
+    display: none;
+}
 #open-debugger{
     position: absolute;
     z-index: 9999;
     right: 85px;
+    top: 15px;
+    cursor: pointer;
+    -webkit-app-region: no-drag;
+}
+.package-height{
+    height: 40px;
+}
+#installed-apps{
+    position: absolute;
+    z-index: 9999;
+    right: 130px;
     top: 15px;
     cursor: pointer;
     -webkit-app-region: no-drag;
@@ -218,6 +240,9 @@ html,body{
 }
 .connection-status-too-many{
     background-color:#9c27b0;
+}
+.uninstall-apk{
+    display: none;
 }
 .link{
     color:lightseagreen;

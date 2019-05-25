@@ -23,7 +23,7 @@
     </div>
     <div class="col s12 m6">
         <div class="setup-content">
-            <div class="section-title">Step 2: Install Drivers</div>
+            <div class="section-title">Step 2: Install Drivers ( Windows Only - skip this on Mac / Linux ) </div>
             <p>Install the driver software for your device. Go to <span class="link" data-url="https://developer.oculus.com/downloads/package/oculus-go-adb-drivers/">developer.oculus.com</span> on your PC and download the drivers for your headset. The Oculus Go drivers work for the quest also. To install the drivers extract the zip folder, right click the <div class="chip">android_winusb.inf</div> file and click install.</p>
 
             <img class="setup-image" src="setup-images/ADB Drivers.png"/>
@@ -33,8 +33,8 @@
     </div>
     <div class="col s12 m6">
         <div class="setup-content">
-            <div class="section-title">Step 3: Enable Developer Mode</div>
-            <p>Now that you’re a "developer", open the Oculus app on your smartphone or tablet. In the Settings tab, tap on the Go headset and tap 'More settings'. In the list, you should now see Developer Mode.</p>
+            <div class="section-title">Step 3: Enable Developer Mode and Reboot</div>
+            <p>Now that you’re a "developer", open the Oculus app on your smartphone or tablet. In the Settings tab, tap on the Go headset and tap 'More settings'. In the list, you should now see Developer Mode. Once you have enabled developer mode it is a good idea to reboot your headset to be able to see it on the device. </p>
 
             <img class="setup-image" src="setup-images/OculusAppDevModeSteps.png"/>
         </div>
@@ -43,8 +43,8 @@
     </div>
     <div class="col s12 m6">
         <div class="setup-content">
-            <div class="section-title">Step 4: Allow USB Debugging</div>
-            <p>Once you are connected you will have to allow USB debugging access on your headset. If you put your headset on at this point you will see something like the below. You should also select 'Always allow from this computer' to prevent this message from coming up every time you connect.</p>
+            <div class="section-title">Step 4: Connect USB Cable and Allow USB Debugging</div>
+            <p>Now its time to connect the USB cable. Once you are connected you will have to allow USB debugging access on your headset. If you put your headset on at this point you will see something like the below. You should also select 'Always allow from this computer' to prevent this message from coming up every time you connect.</p>
 
             <img class="setup-image" src="setup-images/allow-auth.png"/>
         </div>
@@ -58,11 +58,13 @@
             <svg style="display:none" class="install-launcher-loading uil-ring-alt" width='40px' height='40px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="rgba(175,175,183,0)" fill="none" stroke-width="10" stroke-linecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#91cce6" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="1s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="1s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>
             <a  href="#" class="waves-effect waves-light btn install-launcher">Install App Launcher</a>
         </p>
-        <p style="text-align: center" >You will then be able to install apps to your headset and open them from the launcher.</p>
+        <p style="text-align: center" >You will then be able to install apps to your headset and open them from the launcher. You can find it in the side menu of the library under the Unknown Sources section called <span class="chip">* Open App Store VR</span>. This will show you all the apps on the device even hidden ones you would otherwise not see. </p>
         <p style="text-align: center" class="install-expanse-container">
             <svg style="display:none" class="install-expanse-loading uil-ring-alt" width='40px' height='40px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="rgba(175,175,183,0)" fill="none" stroke-width="10" stroke-linecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#91cce6" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="1s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="1s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>
             <a  href="#" class="waves-effect waves-light btn install-expanse">Install Your First App - The Expanse</a>
         </p>
+        <p style="text-align: center" >If you want to install your own APK files just drag and drop them over this window.</p>
+        <p style="text-align: center" >If you have any problems or want to say hi drop us a line on discord - <span class="link" data-url="https://discord.gg/HNnDPSu">discord</span>.</p>
         <br><br>
     </div>
 </template>
@@ -78,6 +80,7 @@
             <img class="app-image"/>
         </div>
         <div class="app-meta"></div>
+        <a  href="#" class="waves-effect waves-light btn uninstall-apk">Uninstall</a>
     </div>
     <div class="col s6 l8 summary">
 
@@ -122,6 +125,7 @@
                 <p class="description">Here is some more information about this product that is only revealed once clicked on.</p>
             </div>
             <div class="card-action right-align">
+                <i class="material-icons left is-installed green-text">done</i>
                 <svg style="display:none" class="loading uil-ring-alt" width='40px' height='40px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="rgba(175,175,183,0)" fill="none" stroke-width="10" stroke-linecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#91cce6" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="1s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="1s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>
                 <a  href="#" class="waves-effect waves-light btn install-apk">Install</a>
             </div>
@@ -134,6 +138,14 @@
             <img class="menu-icon" src=""/><br>
             <span class="menu-name">Games</span>
         </div>
+    </div>
+</template>
+<template id="packageItem">
+    <div class="col s8 package-height">
+        <span class="chip"></span>
+    </div>
+    <div class="col s4 package-height">
+        <a  href="#modal2" class="waves-effect waves-light btn uninstall-package modal-trigger">Uninstall</a>
     </div>
 </template>
 <div class="side-nav">
@@ -159,9 +171,11 @@
 <div class="content">
     <div class="header">
         <div class="header-title">Item Name</div>
+        <div class="apk-install">Drag an APK file over this window to install. See Setup to get started.</div>
         <i id="close-app" class="material-icons">close</i>
         <i id="connection-refresh" class="material-icons">refresh</i>
         <i id="open-debugger" class="material-icons">bug_report</i>
+        <i id="installed-apps" class="material-icons">list</i>
         <svg id="connection-refresh-loading" style="display:none" class="uil-ring-alt" width='20px' height='20px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><circle cx="50" cy="50" r="40" stroke="rgba(175,175,183,0)" fill="none" stroke-width="10" stroke-linecap="round"></circle><circle cx="50" cy="50" r="40" stroke="#91cce6" fill="none" stroke-width="6" stroke-linecap="round"><animate attributeName="stroke-dashoffset" dur="1s" repeatCount="indefinite" from="0" to="502"></animate><animate attributeName="stroke-dasharray" dur="1s" repeatCount="indefinite" values="150.6 100.4;1 250;150.6 100.4"></animate></circle></svg>
         <div id="connection-status" class="connection-status-unauthorized">
             <div id="connection-status-message">Connecting...</div>
@@ -213,6 +227,19 @@
     <div class="modal-footer">
         <a href="#!" class="modal-close btn orange waves-effect waves-light add-repo-close">Cancel</a>
         <a href="#!" class="modal-close btn waves-effect waves-light add-repo-button">Add Repo</a>
+    </div>
+</div>
+<!-- Modal Structure -->
+<div id="modal2" class="modal bottom-sheet modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Are you sure?</h4>
+        Some of these apps could be related to the core function of your device. Please be very careful when uninstalling things from your device. We accept no liability if you break your device.
+
+        <h5>Continue at your own risk!</h5>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-close btn orange waves-effect waves-light">Cancel</a>
+        <a href="#!" class="modal-close btn waves-effect waves-light confirm-uninstall-app">Uninstall App</a>
     </div>
 </div>
 <div class="spinner-drag text-center">

@@ -29,16 +29,16 @@ class Setup {
         let statusMessage = document.getElementById('connection-status-message');
         switch(status){
             case "too-many":
-                statusMessage.innerText = 'Warning: Please connect only one android device to your PC - <a class="help-link">Help</a>';
+                statusMessage.innerHTML = 'Warning: Please connect only one android device to your PC - <a class="help-link">Setup</a>';
                 break;
             case "connected":
-                statusMessage.innerText = 'Connected';
+                statusMessage.innerHTML = 'Connected';
                 break;
             case "disconnected":
-                statusMessage.innerHTML = 'Disconnected: Connect/Reconnect your headset via USB - <a class="help-link">Help</a>';
+                statusMessage.innerHTML = 'Disconnected: Connect/Reconnect your headset via USB - <a class="help-link">Setup</a>';
                 break;
             case "unauthorized":
-                statusMessage.innerText = 'Unauthorized: Put your headset on and click always allow and then OK - <a class="help-link">Help</a>';
+                statusMessage.innerHTML = 'Unauthorized: Put your headset on and click always allow and then OK - <a class="help-link">Setup</a>';
                 break;
         }
         let help = document.querySelector('.help-link');
@@ -67,7 +67,14 @@ class Setup {
             });
     }
     uninstallApk(pkg){
-        return this.adb.uninstall(this.deviceSerial, pkg);
+        this.app.spinner_loading_message.innerText = 'Uninstalling '+pkg;
+        this.app.toggleLoader(true);
+        return this.adb.uninstall(this.deviceSerial, pkg)
+            .then(()=>this.app.toggleLoader(false))
+            .catch(e=>{
+                alert(e);
+                this.app.toggleLoader(false);
+            });
     }
     enableWifiMode(){
         if(this.showHideWifiButton()){
@@ -175,7 +182,10 @@ class Setup {
         }
     }
     async downloadTools(){
-        document.getElementById('connection-status-message').innerText = 'Downloading ADB please wait...'
+        document.getElementById('connection-status-message').innerHTML = 'Please see the Setup screen to get started. - <a class="help-link">Setup</a> ';
+        setTimeout(()=>{
+            document.getElementById('connection-status-message').innerHTML = 'Downloading ADB please wait...';
+        },3000);
         const WINDOWS_URL = 'https://dl.google.com/android/repository/platform-tools-latest-windows.zip';
         const LINUX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-linux.zip';
         const OSX_URL = 'https://dl.google.com/android/repository/platform-tools-latest-darwin.zip';

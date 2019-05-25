@@ -43,6 +43,7 @@ class App{
         this.appItem = document.querySelector('#appItem');
         this.template = document.querySelector('#listItem');
         this.appVersion = document.querySelector('#appVersion');
+        this.packageItem = document.querySelector('#packageItem');
 
         this.title = document.querySelector('.header-title');
         this.searchFilterContainer = document.querySelector('#searchFilterContainer');
@@ -58,11 +59,14 @@ class App{
 
         this.enable_wifi = document.querySelector('#enable-wifi');
         this.enable_wifi.addEventListener('click',()=>this.setup.enableWifiMode());
-        document.getElementById('close-app').addEventListener('click',()=>{
-            remote.getCurrentWindow().close();
-        });
-        document.getElementById('open-debugger').addEventListener('click',()=>{
-            remote.getCurrentWindow().toggleDevTools();
+        document.getElementById('close-app').addEventListener('click',()=>remote.getCurrentWindow().close());
+        document.getElementById('open-debugger').addEventListener('click',()=>remote.getCurrentWindow().toggleDevTools());
+        document.getElementById('installed-apps').addEventListener('click',()=>this.openPackageList());
+        document.querySelector('.confirm-uninstall-app').addEventListener('click',()=>{
+            if(this.current_uninstall_package){
+                this.setup.uninstallApk(this.current_uninstall_package)
+                    .then(()=>this.openPackageList());
+            }
         });
         document.addEventListener('DOMContentLoaded', function() {
             let elems = document.querySelectorAll('.modal');
@@ -176,6 +180,7 @@ class App{
     }
     async showInstalledPackage(child, app,appPackage){
         child.querySelector('.app-meta').innerHTML = this.getAppMetadata(app);
+        this.setup.updateConnectedStatus(await this.setup.connectedStatus());
         if(~this.setup.devicePackages.indexOf(app.packageName)){
             let installedVersion = await this.setup.getPackageInfo(app.packageName)
             let hasUpdate = false;
@@ -186,11 +191,13 @@ class App{
                     }
                 }catch(e){}
             });
+            child.querySelector('.uninstall-apk').style.display = 'block';
             child.querySelector('.app-meta').innerHTML += '<br>'+(hasUpdate?'Update Available<br>':'')+'Installed version: '+installedVersion+'<br>';
+        }else{
+            child.querySelector('.uninstall-apk').style.display = 'none';
         }
     }
     async openAppScreen(app,appPackage){
-        //console.log(app,appPackage);
         this.add_repo.style.display = 'none';
         this.container.innerHTML = '';
         this.searchFilterContainer.style.display = 'none';
@@ -198,8 +205,8 @@ class App{
         let child = this.appItem.content.cloneNode(true);
         child.querySelector('.app-image').src = app.icon;
         child.querySelector('.summary').innerHTML = this.getAppSummary(app)+'<br><br>'+this.getLongMetaData(app)+'<br><br>';
-        child.querySelector('.screenshots');
-
+        child.querySelector('.uninstall-apk').addEventListener('click',()=>this.setup.uninstallApk(app.packageName)
+            .then(()=>setTimeout(()=>this.searchFilter(),3000)));
         [].slice.call(child.querySelectorAll('.link')).forEach(link=>{
             link.addEventListener('click',()=>this.openExternalLink(link.dataset.url));
         });
@@ -216,6 +223,7 @@ class App{
             versionChild.querySelector('.install-apk').addEventListener('click',()=>{
                 this.toggleLoader(true);
                 this.spinner_loading_message.innerText = 'Installing APK...';
+                console.log(p.apkName.substr(0,7)==='http://'||p.apkName.substr(0,8)==='https://'?p.apkName:this.current_data.url+p.apkName);
                 this.setup.installApk(p.apkName.substr(0,7)==='http://'||p.apkName.substr(0,8)==='https://'?p.apkName:this.current_data.url+p.apkName)
                     .then(()=>{
                         this.toggleLoader(false);
@@ -230,6 +238,26 @@ class App{
         this.container.appendChild(child);
         this.setup.getPackageInfo(app.packageName);
        M.Collapsible.init(document.querySelectorAll('.collapsible'), {});
+    }
+    async openPackageList(){
+        this.setup.updateConnectedStatus(await this.setup.connectedStatus());
+        this.add_repo.style.display = 'none';
+        this.container.innerHTML = '';
+        this.searchFilterContainer.style.display = 'none';
+        this.title.innerHTML = "Installed Packages";
+        if(!this.setup.status === 'connected'){
+            this.container.innerHTML = '<h4 class="grey-text">No device connected...</h4>'
+        }else{
+            this.setup.devicePackages.forEach(p=>{
+                let child = this.packageItem.content.cloneNode(true);
+                child.querySelector('.chip').innerText = p;
+                child.querySelector('.uninstall-package').addEventListener('click',()=>{
+                    this.current_uninstall_package = p;
+                    //this.setup.uninstallApk(p);
+                });
+                this.container.appendChild(child);
+            });
+        }
     }
     openSetupScreen(){
         this.add_repo.style.display = 'none';
@@ -298,32 +326,14 @@ class App{
             child.querySelector('.card-title-two').innerHTML = '<i class="material-icons right">close</i>'+d.name;
             child.querySelector('.description').innerText = (d.summary||'');
             let installApk = child.querySelector('.install-apk');
-            let loading = child.querySelector('.loading');
-            if(!this.setup.deviceStatus || this.setup.deviceStatus !== 'connected'){
-                installApk.style.display = 'none';
-            }
             installApk.innerText = 'More';
             installApk.className = 'waves-effect waves-light btn install-apk';
             installApk.addEventListener('click',()=>{
                 this.openAppScreen(d,this.current_data.body.packages[d.packageName]);
             });
-            // if(~this.setup.devicePackages.indexOf(d.packageName)){
-            //     installApk.innerText = 'UNINSTALL';
-            //     installApk.className = 'waves-effect waves-light btn install-apk red';
-            //     installApk.addEventListener('click',()=>{
-            //         installApk.style.display = 'none';
-            //         loading.style.display = 'inline-block';
-            //         this.setup.uninstallApk(d.packageName).then(()=>{
-            //             this.setup.getPackages()
-            //         });
-            //     });
-            // }else{
-            //     installApk.innerText = 'INSTALL';
-            //     installApk.className = 'waves-effect waves-light btn install-apk';
-            //     installApk.addEventListener('click',()=>{
-            //         this.openAppScreen(d,this.current_data.body.packages[d.packageName]);
-            //     });
-            // }
+            if(~this.setup.devicePackages.indexOf(d.packageName)){
+                child.querySelector('.is-installed').style.display = 'block';
+            }
             this.container.appendChild(child);
         });
     }
