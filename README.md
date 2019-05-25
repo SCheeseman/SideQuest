@@ -10,7 +10,7 @@ It is important to follow the instructions in the setup screen before you start 
 
 
 
-## Open Store VR Features
+## SideQuest Features
 
 * Automatic download of ADB platform-tools for your platform - win/mac/linux.
 * Setup instructions for enablding developer mode on your device.
