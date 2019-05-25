@@ -1,4 +1,6 @@
-# OpenStoreVR
+# SideQuest
+
+Credit to http://reddit.com/u/NoBullet for the name!
 
 ![Image](https://i.imgur.com/9TxcOQg.png)
 
