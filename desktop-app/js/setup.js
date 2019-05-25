@@ -1,19 +1,11 @@
-const adb = require('adbkit');
-const extract = require('extract-zip');
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
-const request = require('request');
-const md5 = require('md5');
-const Readable = require('stream').Readable;
-
 class Setup {
     constructor(app) {
         this.app = app;
+
         this.devicePackages = [];
         this.deviceStatus = 'disconnected';
         this.deviceSerial = '';
-        this.adbPath = path.join(__dirname,'platform-tools');
+        this.adbPath = path.join(appData,'platform-tools');
         this.connection_refresh = document.getElementById('connection-refresh');
         this.connection_refresh_loading = document.getElementById('connection-refresh-loading');
         this.setupAdb()
@@ -209,7 +201,7 @@ class Setup {
                 })
                 .pipe(fs.createWriteStream(zipPath))
                 .on('finish', ()  => {
-                    extract(zipPath, {dir: __dirname},(error) => {
+                    extract(zipPath, {dir: appData},(error) => {
                         if(error) {
                             reject(error);
                         }else{

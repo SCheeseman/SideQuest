@@ -22,7 +22,7 @@ class Repos {
                     this.openMenuRepos();
                     this.app.toggleLoader(false);
                     if(this.repos.length){
-                        this.openRepo(this.repos[0])
+                        this.openRepo(this.repos[0]);
                     }
                 };
                 setTimeout(()=>Promise.all(data.split('\n').map(url=>this.addRepo(url))).then(done).catch(done));
@@ -144,7 +144,7 @@ class Repos {
                 if(error){
                     return reject(error);
                 }else{
-                    fs.writeFile(__dirname+'/sources/'+md5(url)+".json",body,err=>{
+                    fs.writeFile(appData+'/sources/'+md5(url)+".json",body,err=>{
                         if(err)alert("Failed to cache source ( url ):" + err);
                     });
                     try{

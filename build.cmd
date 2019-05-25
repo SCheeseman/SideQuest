@@ -1,1 +1,1 @@
-cd build && electron-packager --platform=all --arch=x64 ../ "OpenStoreVR" --ignore="/mobile-launcher|/desktop-app/platform-tools|/build" && cd ../
+cd build && electron-packager --platform=all --arch=x64 ../ "SideQuest" --ignore="/mobile-launcher|/desktop-app/platform-tools|/build" && cd ../

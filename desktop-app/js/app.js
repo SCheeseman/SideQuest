@@ -1,14 +1,27 @@
 const opn = require('opn');
 const remote = require('electron').remote;
+const eApp = require('electron').remote.app;
+const adb = require('adbkit');
+const extract = require('extract-zip');
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
+const request = require('request');
+const md5 = require('md5');
+const Readable = require('stream').Readable;
+const appData = path.join(eApp.getPath('appData'),'OpenStoreVR');
 const semver = require('semver');
 class App{
     constructor(){
         M.AutoInit();
-        this.db_root = "https://raw.githubusercontent.com/shaneharris/OpenStoreVR/master/db/";
-        this.current_data = [];
-        this.setupMenu();
-        this.setup = new Setup(this);
-        this.repos = new Repos(this);
+        fs.mkdir(appData,()=>{
+            fs.mkdir(path.join(appData,'sources'),()=>{
+                this.current_data = [];
+                this.setupMenu();
+                this.setup = new Setup(this);
+                this.repos = new Repos(this);
+            });
+        });
     }
     setupMenu(){
         this.spinner_drag = document.querySelector('.spinner-drag');
